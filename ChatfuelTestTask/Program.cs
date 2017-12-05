@@ -9,7 +9,22 @@ namespace ChatfuelTestTask
 		public byte LiftSpeed { get; }
 		public byte LiftDoorsOpenCloseTime { get; }
 
-		public Config( byte numberOfStoreys, byte storeyHeight, byte liftSpeed, byte liftDoorsOpenCloseTime )
+		public static Config FromArgs( string[] args )
+		{
+			if ( args.Length == 4 )
+			{
+				byte numberOfStoreys = Byte.Parse( args[ 0 ] );
+				if ( numberOfStoreys < 5 || numberOfStoreys > 20 )
+					throw new ArgumentOutOfRangeException( nameof( numberOfStoreys ) );
+				byte storeyHeight = Byte.Parse( args[ 1 ] );
+				byte liftSpeed = Byte.Parse( args[ 2 ] );
+				byte liftDoorsOpenCloseTime = Byte.Parse( args[ 3 ] );
+				return new Config( numberOfStoreys, storeyHeight, liftSpeed, liftDoorsOpenCloseTime );
+			}
+			return new Config( numberOfStoreys: 10, storeyHeight: 1, liftSpeed: 1, liftDoorsOpenCloseTime: 1 );
+		}
+
+		private Config( byte numberOfStoreys, byte storeyHeight, byte liftSpeed, byte liftDoorsOpenCloseTime )
 		{
 			NumberOfStoreys = numberOfStoreys;
 			StoreyHeight = storeyHeight;
