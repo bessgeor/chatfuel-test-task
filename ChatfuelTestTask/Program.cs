@@ -7,8 +7,12 @@ namespace ChatfuelTestTask
 {
 	internal class Program
 	{
+		private static string[] _args; // a bit hacky but is better to require input as key-value instead of positional
+
 		public static void Main( string[] args )
 		{
+			_args = args;
+
 			IConfigurationRoot config = new ConfigurationBuilder()
 				.Build();
 
@@ -27,6 +31,7 @@ namespace ChatfuelTestTask
 			public void ConfigureServices( IServiceCollection services )
 			{
 				services.AddMvcCore(); // is enough since we are using mvc just as fancy async input provider
+				services.AddSingleton( new Lift( Config.FromArgs( _args ) ) );
 			}
 
 			public void Configure( IApplicationBuilder app )
