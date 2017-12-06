@@ -1,19 +1,25 @@
-﻿using System;
-using System.Threading;
+﻿using HellBrick.Collections;
 using System.Threading.Tasks;
 
 namespace ChatfuelTestTask
 {
 	public class OutputProvider
 	{
-		public void Add( LiftEvent item )
+		private readonly AsyncQueue<LiftEvent> _events = new AsyncQueue<LiftEvent>();
+
+		public OutputProvider()
 		{
-			throw new NotImplementedException();
+			Task.Run( async () =>
+			{
+				while ( true )
+				{
+					LiftEvent @event = await _events.TakeAsync().ConfigureAwait( false );
+					@event.WriteToConsoleLocking(); // is pretty OK since the output is fast
+				}
+			} );
 		}
 
-		public Task<LiftEvent> TakeAsync( CancellationToken cancellationToken )
-		{
-			throw new NotImplementedException();
-		}
+		public void Write( LiftEvent item )
+			=> _events.Add( item );
 	}
 }
