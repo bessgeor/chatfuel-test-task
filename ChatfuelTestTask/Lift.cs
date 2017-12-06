@@ -18,9 +18,17 @@ namespace ChatfuelTestTask
 		}
 
 		public Task CallFromOutside( byte floor )
-			=> Task.FromException( new NotImplementedException() );
+		{
+			if ( floor < 1 || floor > _numberOfStoreys )
+				return Task.FromException( new ArgumentOutOfRangeException() );
+			return Task.FromException( new NotImplementedException() );
+		}
 
 		public Task DirectFromInside( byte floor )
-			=> Task.FromException( new NotImplementedException() );
+		{
+			if ( floor < 1 || floor > _numberOfStoreys )
+				return Task.FromException( new ArgumentOutOfRangeException() );
+			return Task.FromException( new NotImplementedException() );
+		}
 	}
 }
