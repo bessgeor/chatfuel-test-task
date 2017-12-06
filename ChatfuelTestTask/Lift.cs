@@ -8,7 +8,7 @@ namespace ChatfuelTestTask
 		private readonly OutputProvider _out = new OutputProvider();
 		private readonly TimeSpan _doorsFreeze;
 		private readonly TimeSpan _floorFreeze;
-		private readonly byte _numberOfStoreys;
+		private readonly int _numberOfStoreys;
 
 		internal Lift( Config config )
 		{
@@ -17,14 +17,14 @@ namespace ChatfuelTestTask
 			_numberOfStoreys = config.NumberOfStoreys;
 		}
 
-		public Task CallFromOutside( byte floor )
+		public Task CallFromOutside( int floor )
 		{
 			if ( floor < 1 || floor > _numberOfStoreys )
 				return Task.FromException( new ArgumentOutOfRangeException() );
 			return Task.FromException( new NotImplementedException() );
 		}
 
-		public Task DirectFromInside( byte floor )
+		public Task DirectFromInside( int floor )
 		{
 			if ( floor < 1 || floor > _numberOfStoreys )
 				return Task.FromException( new ArgumentOutOfRangeException() );

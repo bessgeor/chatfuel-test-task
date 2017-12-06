@@ -13,9 +13,9 @@ namespace ChatfuelTestTask
 	{
 		public DateTime OccuredAt { get; }
 		public LiftEventType Type { get; }
-		public byte Floor { get; }
+		public int Floor { get; }
 
-		public LiftEvent( LiftEventType type, byte floor )
+		public LiftEvent( LiftEventType type, int floor )
 		{
 			OccuredAt = DateTime.UtcNow;
 			Floor = floor;
@@ -36,12 +36,12 @@ namespace ChatfuelTestTask
 				int hash = 12345701;
 				hash = hash * prime + System.Collections.Generic.EqualityComparer<DateTime>.Default.GetHashCode( OccuredAt );
 				hash = hash * prime + System.Collections.Generic.EqualityComparer<LiftEventType>.Default.GetHashCode( Type );
-				hash = hash * prime + System.Collections.Generic.EqualityComparer<byte>.Default.GetHashCode( Floor );
+				hash = hash * prime + System.Collections.Generic.EqualityComparer<int>.Default.GetHashCode( Floor );
 				return hash;
 			}
 		}
 
-		public bool Equals( LiftEvent other ) => OccuredAt == other.OccuredAt && System.Collections.Generic.EqualityComparer<LiftEventType>.Default.Equals( Type, other.Type ) && System.Collections.Generic.EqualityComparer<byte>.Default.Equals( Floor, other.Floor );
+		public bool Equals( LiftEvent other ) => OccuredAt == other.OccuredAt && System.Collections.Generic.EqualityComparer<LiftEventType>.Default.Equals( Type, other.Type ) && System.Collections.Generic.EqualityComparer<int>.Default.Equals( Floor, other.Floor );
 		public override bool Equals( object obj ) => obj is LiftEvent && Equals( (LiftEvent) obj );
 
 		public static bool operator ==( LiftEvent x, LiftEvent y ) => x.Equals( y );
